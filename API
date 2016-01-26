@@ -1,0 +1,30 @@
+# Oxpecker API
+-----------------------------
+users/authentication                                  << head   << (<username|email:string>, password:string) << sign in
+users/registration                                    << post   << (username:string, email:string, password:string)  << sign up
+users/list                                            << get    << void << get users list
+users/<username|email>                                << get    << void << get user details
+users/<username|email>                                << put    << (details:json) << update user details
+users/<username|email>                                << delete << void << disable user account
+users/token                                           << post   << void << generate token for activation link
+users/token                                           << get    << void << get current user token value
+users/help                                            << get    << void << developer guide
+-----------------------------
+games/<gcode|name>                                    << head   << void << check game existence
+games/<gcode|name>                                    << get    << void << get game details
+games/search                                          << get    << (keyword:string) << fetch list of games which have this keyword
+games/                                                << post   << (name:string, is_commercial:bool, license:string, details:json, attach:file) << add new game
+games/<gcode>                                         << put    << (name:string, is_commercial:bool, license:string, details:json, attach:file) << update game
+games/<gcode>                                         << delete << void << disable game
+games/<gcode>/star                                    << put    << (user:string) << set star on game
+games/<gcode>/bake                                    << post   << (user:string)  << serve game for user
+games/<gcode>/notifies                                << get    << void  << get list of all emails which sent to users of game
+games/<gcode>/notifies                                << post   << void  << send email to users of game
+games/<gcode>/comments                                << get    << void << get comments of game
+games/<gcode>/comments                                << post   << (user:string, title:string, body:string, is_private:bool) << add new comment
+games/<gcode>/comments/<cid>/replay                   << post   << (user:string, title:string, body:string) << replay to comment
+games/<gcode>/comments/<cid>report                    << post   << (user:string) << report comment
+games/<gcode>/comments/<cid>/like                     << put    << (user:string) << like comment
+games/<gcode>/comments/<cid>                          << delete << void << delete comment
+games/help                                            << get    << void << developer guide
+-----------------------------
