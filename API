@@ -3,9 +3,9 @@
 users/authentication                                  << head   << (<username|email:string>, password:string) << sign in
 users/registration                                    << post   << (username:string, email:string, password:string)  << sign up
 users/list                                            << get    << void << get users list
-users/<username|email>                                << get    << void << get user details
-users/<username|email>                                << put    << (details:json) << update user details
-users/<username|email>                                << delete << void << disable user account
+users/                                                << get    << void << get user details
+users/                                                << put    << (details:json) << update user details
+users/                                                << delete << void << disable user account
 users/token                                           << post   << void << generate token for activation link
 users/token                                           << get    << void << get current user token value
 users/help                                            << get    << void << developer guide
