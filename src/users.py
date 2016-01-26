@@ -63,6 +63,15 @@ class UserInformation(tornado.web.RequestHandler):
         data = self.get_argument('data')
         # Update user information
 
+    def delete(self):
+        """Disable user status which can't user system.
+
+        Returns:
+            JSON string which has "status" to tell you it's disabled or not.
+        """
+        data = self.get_argument('data')
+        # Disable user status
+
 
 class UserToken(tornado.web.RequestHandler):
     def get(self):
