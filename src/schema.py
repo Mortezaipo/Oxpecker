@@ -1,13 +1,17 @@
-from sqlalchemy import Table, Column, Integer, String, DateTime, Boolean, ForeignKey, func
+from sqlalchemy import (Table, Column, Integer,
+                        String, DateTime, Boolean,
+                        ForeignKey, func)
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
 
-user_game_relation = Table('users_games', Base.metadata,
-    Column('user_id', Integer, ForeignKey('users.id')),
+# User & Game relationship
+user_game_relation = Table(
+    'users_games', Base.metadata,
     Column('game_id', Integer, ForeignKey('games.id')),
+    Column('user_id', Integer, ForeignKey('users.id')),
 )
 
 
