@@ -32,31 +32,29 @@ class Database(object):
         schema.Base.metadata.create_all(self.__engine)
         return True
 
-    def initial_schema(self, name, data):
-        """Find schema, initalize and then return its class.
-
-        Args:
-            name: schema name.
-            data: dictionary of data.
-        Returns:
-            Return schema class.
-        """
-        if name == 'License':
-            return schema.License(**data)
-        elif name == 'User':
-            return schema.User(**data)
-        elif name == 'Game':
-            return schema.Game(**data)
-
-    def insert(self, schema_name, data):
+    def insert(self, schema, data):
         """Insert method for adding new data in database.
 
         Args:
-            schema_name: name of schema.
+            schema: schema class.
             data: dictionary of data.
         Returns:
             Return True/False which related to status of insert action.
         """
-        self.__session.add(self.initial_schema(schema_name, data))
+        self.__session.add(schema(**data))
+        self.__session.commit()
+        return True
+
+    def delete(self, schema, where):
+        """Delete method for deleting data from database.
+
+        Args:
+            schema: schema class.
+            where: dictionary of determind map for remove.
+        Returns:
+            Return True/False which related to status of delete action.
+        """
+        rows = self.__session.query(schema).filter_by(**where).first()
+        self.__session.delete(rows)
         self.__session.commit()
         return True
