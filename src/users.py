@@ -1,21 +1,38 @@
-import tornado.web
+from tornado.web import RequestHandler
+from src.database import Database
+from src.schema import User
+from hashlib import md5
 
 
-class UserAuthentication(tornado.web.RequestHandler):
-    def head(self):
+class UserAuthentication(RequestHandler):
+    database = None
+
+    def initialize(self):
+        self.database = Database()
+
+    def get(self):
         """Authentication user (sign in)
 
         Returns:
-            http headers. 404: not found, 403: disabled, 200: signed in.
+            JSON string which contain status. example: {"status": "ok"}, {"status": "no"}
         """
+        data = {"status": "no"}
         username = self.get_argument('username')
         password = self.get_argument('password')
         if not username or not password:
-            self.set_status(403)
-        # Check Authentication FIXME
-
-    def get(self):
-        pass
+            self.write(data)
+        record = self.database.session.query(User).filter_by(username=username,
+                                                             password=md5(password.encode('utf-8')).hexdigest(),
+                                                             ).first()
+        if not record:
+            data["status"] = "not found"
+        elif record.is_lock is True:
+            data["status"] = "locked"
+        elif record.is_active is False:
+            data["status"] = "deactivated"
+        else:
+            data["status"] = "ok"
+        self.write(data)
 
     def post(self):
         """Register user (sign up)
@@ -27,13 +44,16 @@ class UserAuthentication(tornado.web.RequestHandler):
         username = self.get_argument('username')
         email = self.get_argument('email')
         password = self.get_argument('password')
-        # It should check that username is not be "list" <<<
-        # Token generator
-        # Reigster user
-        # send activation email
 
+        check = self.database.session.query(User).filter_by(username=username).first()
+        if check:
+            self.write({"status": "exist"})
+        else:
+            self.database.session.add(User(username=username, email=email, password=md5(password.encode('utf-8')).hexdigest(), is_active=True, is_lock=False))
+            self.database.session.commit()
+            self.write({"status": "ok"})
 
-class UserInformation(tornado.web.RequestHandler):
+class UserInformation(RequestHandler):
     def get(self):
         """Get user information. It could be list of all users or user information.
 
@@ -73,7 +93,7 @@ class UserInformation(tornado.web.RequestHandler):
         # Disable user status
 
 
-class UserToken(tornado.web.RequestHandler):
+class UserToken(RequestHandler):
     def get(self):
         """Get user last token which are waiting for approval.
 
@@ -94,7 +114,7 @@ class UserToken(tornado.web.RequestHandler):
         pass
 
 
-class Help(tornado.web.RequestHandler):
+class Help(RequestHandler):
     def get(self):
         """Show how to work with API for users part.
 
