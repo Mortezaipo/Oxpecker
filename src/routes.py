@@ -1,6 +1,7 @@
 import tornado.web
-import users
+from src import users
 
 url = tornado.web.Application([
-    (r"^users/", user),
+    (r"/users/", users.UserInformation),
+    (r"/users/authentication/", users.UserAuthentication),
 ])
