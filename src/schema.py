@@ -20,7 +20,8 @@ class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
     username = Column(String(20), unique=True)
-    password = Column(String(32), unique=True)
+    password = Column(String(32))
+    email = Column(String(50), unique=True)
     join_date = Column(DateTime, default=func.now())
     is_active = Column(Boolean, default=True)
     is_lock = Column(Boolean, default=False)
