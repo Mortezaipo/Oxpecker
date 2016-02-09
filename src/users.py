@@ -1,15 +1,20 @@
 from tornado.web import RequestHandler
-from src.database import Database
-from src.schema import User
+from src.libs import Libs
 from hashlib import md5
 
 
+class User(RequestHandler):
+    def get(self):
+        """Fetch list of all users
+
+        Returns:
+            JSON string which contains all users with their status.
+        """
+        #records = session.query(User).execute().all()
+        #self.write(records.count())
+
+
 class UserAuthentication(RequestHandler):
-    database = None
-
-    def initialize(self):
-        self.database = Database()
-
     def get(self):
         """Authentication user (sign in)
 
@@ -21,17 +26,17 @@ class UserAuthentication(RequestHandler):
         password = self.get_argument('password')
         if not username or not password:
             self.write(data)
-        record = self.database.session.query(User).filter_by(username=username,
-                                                             password=md5(password.encode('utf-8')).hexdigest(),
-                                                             ).first()
-        if not record:
-            data["status"] = "not found"
-        elif record.is_lock is True:
-            data["status"] = "locked"
-        elif record.is_active is False:
-            data["status"] = "deactivated"
-        else:
+        record = Libs.authentication(username, md5(password.encode('utf-8')).hexdigest())#session.query(User).filter_by(username=username,
+                                               #password=md5(password.encode('utf-8')).hexdigest(),
+                                               #).first()
+        if record:
             data["status"] = "ok"
+        #elif record.is_lock is True:
+        #    data["status"] = "locked"
+        #elif record.is_active is False:
+        #    data["status"] = "deactivated"
+        #else:
+        #    data["status"] = "ok"
         self.write(data)
 
     def post(self):
@@ -45,12 +50,12 @@ class UserAuthentication(RequestHandler):
         email = self.get_argument('email')
         password = self.get_argument('password')
 
-        check = self.database.session.query(User).filter_by(username=username).first()
+        check = session.query(User).filter_by(username=username).first()
         if check:
             self.write({"status": "exist"})
         else:
-            self.database.session.add(User(username=username, email=email, password=md5(password.encode('utf-8')).hexdigest(), is_active=True, is_lock=False))
-            self.database.session.commit()
+            session.add(User(username=username, email=email, password=md5(password.encode('utf-8')).hexdigest(), is_active=True, is_lock=False))
+            session.commit()
             self.write({"status": "ok"})
 
 class UserInformation(RequestHandler):
