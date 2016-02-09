@@ -30,7 +30,7 @@ class Database(object):
         if self._con:
             self._con.close()
 
-    def fetch_all(self, query, fetch_one=False):
+    def fetch(self, query, fetch_one=False):
         """Fetch records on SQL query
 
         :param query: SQL command.
@@ -39,7 +39,7 @@ class Database(object):
         """
         if not self._con:
             self.connect()
-
+        print(query)
         try:
             self._cur.execute(query)
             if fetch_one:
@@ -48,7 +48,7 @@ class Database(object):
                 result = self._cur.fetchall()
             return result
         except pgsql.DatabaseError as err:
-            raise "Fetch all query failed! Check your SQL query. [%s]" % err
+            raise Exception("Fetch all query failed! Check your SQL query. " + str(err))
 
     def delete(self, query):
         """Delete SQL execution.
@@ -63,7 +63,7 @@ class Database(object):
             self._cur.execute(query)
             self._con.commit()
         except pgsql.DatabaseError as err:
-            raise "Delete query failed! Check your SQL query. [%s]" % err
+            raise Exception("Delete query failed! Check your SQL query. " + str(err))
 
     def insert(self, query):
         """Insert SQL execution.
@@ -78,7 +78,7 @@ class Database(object):
             self._cur.execute(query)
             self._con.commit()
         except pgsql.DatabaseError as err:
-            raise "Insert query failed! Check your SQL query. [%s]" % err
+            raise Exception("Insert query failed! Check your SQL query. " + str(err))
 
     def update(self, query):
         """Update SQL execution.
@@ -93,7 +93,7 @@ class Database(object):
             self._cur.execute(query)
             self._con.commit()
         except pgsql.DatabaseError as err:
-            raise "Insert query failed! Check your SQL query. [%s]" % err
+            raise Exception("Insert query failed! Check your SQL query. " + str(err))
 
     def execute(self, query):
         """Execute SQL query.
@@ -108,4 +108,4 @@ class Database(object):
             self._cur.execute(query)
             self._con.commit()
         except pgsql.DatabaseError as err:
-            raise "Execute query failed! Check your SQL query. [%s]" % err
+            raise Exception("Execute query failed! Check your SQL query. " + str(err))
