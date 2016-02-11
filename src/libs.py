@@ -12,6 +12,6 @@ class Libs:
         sql = "SELECT * FROM users where username='{}' and password='{}'".format(username, password)
         row = db.fetch(sql, True)
         if row:
-            return True
+            return row
         else:
             return False

@@ -26,17 +26,15 @@ class UserAuthentication(RequestHandler):
         password = self.get_argument('password')
         if not username or not password:
             self.write(data)
-        record = Libs.authentication(username, md5(password.encode('utf-8')).hexdigest())#session.query(User).filter_by(username=username,
-                                               #password=md5(password.encode('utf-8')).hexdigest(),
-                                               #).first()
+        record = Libs.authentication(username, md5(password.encode('utf-8')).hexdigest())
+
         if record:
-            data["status"] = "ok"
-        #elif record.is_lock is True:
-        #    data["status"] = "locked"
-        #elif record.is_active is False:
-        #    data["status"] = "deactivated"
-        #else:
-        #    data["status"] = "ok"
+            if record.get("is_lock") is True:
+                data["status"] = "locked"
+            elif record.get("is_active") is False:
+                data["status"] = "deactivated"
+            else:
+                data["status"] = "ok"
         self.write(data)
 
     def post(self):
