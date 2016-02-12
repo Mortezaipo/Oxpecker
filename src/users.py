@@ -1,32 +1,31 @@
 from tornado.web import RequestHandler
 from src.libs import Libs
-from hashlib import md5
 
 
 class User(RequestHandler):
     def get(self):
         """Fetch list of all users
 
-        Returns:
-            JSON string which contains all users with their status.
+        :return: JSON string which contains all users with their status.
+        :rtype: str
         """
-        #records = session.query(User).execute().all()
-        #self.write(records.count())
+        users = Libs.get_users_list()
+        self.write(str(users))
 
 
 class UserAuthentication(RequestHandler):
     def get(self):
         """Authentication user (sign in)
 
-        Returns:
-            JSON string which contain status. example: {"status": "ok"}, {"status": "no"}
+        :return: JSON string which contain status. example: {"status": "ok"}, {"status": "no"}
+        :rtype: str
         """
         data = {"status": "no"}
         username = self.get_argument('username')
         password = self.get_argument('password')
         if not username or not password:
             self.write(data)
-        record = Libs.authentication(username, md5(password.encode('utf-8')).hexdigest())
+        record = Libs.authentication(username, password)
 
         if record:
             if record.get("is_lock") is True:
@@ -40,21 +39,16 @@ class UserAuthentication(RequestHandler):
     def post(self):
         """Register user (sign up)
 
-        Returns:
-            JSON string which contain status. example: {"status": "ok"},
-            {"status": "failed"}, {"status": "exists"}
+        :return: JSON string which contain status.
+        :rtype: str
         """
         username = self.get_argument('username')
         email = self.get_argument('email')
         password = self.get_argument('password')
 
-        check = session.query(User).filter_by(username=username).first()
-        if check:
-            self.write({"status": "exist"})
-        else:
-            session.add(User(username=username, email=email, password=md5(password.encode('utf-8')).hexdigest(), is_active=True, is_lock=False))
-            session.commit()
-            self.write({"status": "ok"})
+        action = Libs.create_user(username, password, email)
+        self.write({"status": action})
+
 
 class UserInformation(RequestHandler):
     def get(self):
