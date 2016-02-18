@@ -3,7 +3,26 @@ body
   margin-top: 70px;
 }
 
-.navabr-fixed-top
+.well
 {
-  height: 50px;
+  background-color: #ECEEEF !important;
+  box-shadow: none !important;
+  border:none !important;
+  border-bottom: 2px solid #DDD !important;
+}
+
+.table thead
+{
+  background-color: #607D8B;
+  color: #FFF;
+}
+
+.col-md-0
+{
+  width: 4.333333%;
+}
+
+.navbar-default
+{
+  background-color: #ECEEEF !important;
 }

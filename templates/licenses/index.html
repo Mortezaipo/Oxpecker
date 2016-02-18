@@ -1,0 +1,31 @@
+{% extends 'layouts/base_s1.html' %}
+
+{% block title %}Licenses{% endblock %}
+
+{% block body %}
+
+    <table class="table table-hover">
+        <thead>
+            <th class="col-md-0">Row</th>
+            <th>Name</th>
+            <th class="col-md-1">Created At</th>
+            <th class="col-md-1">Updated At</th>
+            <th class="col-md-1">Actions</th>
+        </thead>
+        <tbody>
+            {% for license in licenses %}
+                <tr>
+                    <th class="text-center">{{forloop.counter}}</th>
+                    <td>{{license.name}}</td>
+                    <td>{{license.created_datetime|date:"Y-m-d"}}</td>
+                    <td>{{license.updated_datetime|date:"Y-m-d"}}</td>
+                    <td>
+                        <a href="#" class="btn btn-default btn-xs"><i class="fa fa-print"></i></a>
+                        <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                        <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

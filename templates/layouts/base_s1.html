@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+    <head>
+        {% load staticfiles %}
+        <title>Oxpecker | {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/extra.css' %}">
+    </head>
+    <body>
+        {% include 'top_nav.html' %}
+        <div class="container well well-sm">
+            {% block body %}{% endblock %}
+        </div>
+        <div class="container">
+        {% include 'footer-copyright.html' %}
+        </div>
+    </body>
+</html>
