@@ -27,7 +27,7 @@ class Version(models.Model):
 
 
 class ScreenShot(models.Model):
-    name = models.CharField(max_length=100)
+    title = models.CharField(max_length=100)
     image = models.ImageField()
     game = models.ForeignKey(Game)
     created_datetime = models.DateTimeField(auto_now_add=True)
