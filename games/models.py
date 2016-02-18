@@ -9,6 +9,8 @@ class Game(models.Model):
     introduction = models.TextField()
     company = models.ForeignKey(Company)
     license = models.ForeignKey(License)
+    logo = models.ImageField()
+    image = models.ImageField()
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
 
