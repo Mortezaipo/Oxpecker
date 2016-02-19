@@ -1,0 +1,36 @@
+{% extends 'layouts/base_s1.html' %}
+
+{% block title %}Edit License{% endblock %}
+
+{% block left-legend %}
+<i class="fa fa-bars"></i> Edit License
+{% endblock %}
+
+{% block right-legend %}
+<a href="{% url 'licenses_index' %}" class="btn btn-default btn-xs"><i class="fa fa-chevron-left"></i> Back</a>
+{% endblock %}
+
+{% block extra_headers %}
+{% load staticfiles %}
+<script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'js/tinymce_toolbar_s1.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+
+{% load widget_tweaks %}
+<form method="post" action="">{% csrf_token %}
+    <div class="form-group">
+        {{form.name.label_tag}} {% if form.name.errors %}<label class="label label-danger pull-right">{{form.name.errors.as_text}}</label>{% endif %}
+        {{form.name|add_class:"form-control"}}
+    </div>
+    <div class="form-group">
+        {{form.body.label_tag}} {% if form.body.errors %}<label class="label label-danger pull-right">{{form.body.errors.as_text}}</label>{% endif %}
+        {{form.body|attr:"id:richtext"}}
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Update</button>
+    </div>
+</form>
+
+{% endblock %}

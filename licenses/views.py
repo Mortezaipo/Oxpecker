@@ -40,3 +40,23 @@ def destroy(request, lid):
             messages.add_message(request, messages.ERROR, '%s license not found.' % data['license'].name)
         return redirect(reverse('licenses_index'))
     return render(request, 'licenses/destroy.html', data)
+
+
+def edit(request, lid):
+    data = {}
+    try:
+        license = License.objects.get(id=lid)
+    except License.DoesNotExist:
+        raise Http404('License Not Found!')
+    if request.method == 'POST':
+        form = LicenseForm(request.POST, instance=license)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, '%s license has been updated successfully.' % license.name)
+            return redirect(reverse('licenses_index'))
+    else:
+        form = LicenseForm(instance=license)
+        
+    data.update({'license':license})
+    data.update({'form': form})
+    return render(request, 'licenses/edit.html', data)
