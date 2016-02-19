@@ -13,11 +13,7 @@
 {% block extra_headers %}
 {% load staticfiles %}
 <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-<script>
-    tinymce.init({
-       selector: "#richtext" 
-    });
-</script>
+<script src="{% static 'js/tinymce_toolbar_s1.js' %}"></script>
 {% endblock %}
 
 {% block body %}
