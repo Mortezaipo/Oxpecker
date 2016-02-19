@@ -1,0 +1,34 @@
+{% extends 'layouts/base_s2.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+
+{% load widget_tweaks %}
+<div class="col-md-8">
+    <h1 class="head-s1">OXPECKER</h1>
+    <p>
+        Free and open source game market based on Django framework.
+    </p>
+</div>
+<div class="col-md-4">
+    <fieldset>
+        <legend>Login</legend>
+        <form method="post" action="">{% csrf_token %}
+            <div class="form-group">
+                {{form.username.label_tag}} {% if form.username.errors %}<label class="label label-danger">{{form.username.errors.as_text}}</label>{% endif %}
+                {{form.username|add_class:"form-control"}}
+            </div>
+            <div class="form-group">
+                {{form.password.label_tag}} {% if form.password.errors %}<label class="label label-danger">{{form.password.errors.as_text}}</label>{% endif %}
+                {{form.password|add_class:"form-control"}}
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Login</button>
+                <a href="#" class="btn btn-default">Forgot Password</a>
+            </div>
+        </form>
+    </fieldset>
+</div>
+
+{% endblock %}

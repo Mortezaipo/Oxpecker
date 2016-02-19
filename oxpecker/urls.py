@@ -15,8 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from licenses import views as license_views
+from django.contrib.auth.views import login, logout_then_login
 
 urlpatterns = [
+    #Authentication
+    url(r'^login/$', login, name="login"),
+    url(r'^logout/$', logout_then_login, name="logout"),
+    
+    # License
     url(r'^licenses/$', license_views.index, name="licenses_index"),
     url(r'^licenses/new$', license_views.new, name="licenses_new"),
     url(r'^licenses/(?P<lid>\d+)/destroy$', license_views.destroy, name="licenses_destroy"),

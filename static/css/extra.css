@@ -33,10 +33,21 @@ body
   color: #FFF !important;
 }
 
-.navbar-brand
+.navbar-brand,
+.head-s1
 {
   font-family: 'Bree Serif', serif !important;
+}
+
+.navbar-brand
+{
   font-size: x-large;
+}
+
+.head-s1
+{
+  font-size: 50px;
+  text-shadow: 0px 3px #333;
 }
 
 .btn
@@ -53,4 +64,15 @@ body
 {
   border-radius: 3px !important;
   box-shadow: none !important;
+}
+
+.well-s1
+{
+  background-color: #316177 !important;
+}
+
+.well-s1,
+.well-s1 legend
+{
+  color: #FFF !important;
 }
