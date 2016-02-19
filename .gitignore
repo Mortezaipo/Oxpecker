@@ -62,3 +62,6 @@ target/
 
 #Migrations
 */migrations/*.py
+
+#SQLite
+*.sqlite*
