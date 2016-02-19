@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'licenses',
     'companies',
     'baskets',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -55,6 +57,13 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'oxpecker.urls'
+
+MESSAGE_TAGS = {
+    constants.INFO: 'alert-info',
+    constants.SUCCESS: 'alert-success',
+    constants.ERROR: 'alert-danger',
+    constants.WARNING: 'alert-warning'
+}
 
 TEMPLATES = [
     {
