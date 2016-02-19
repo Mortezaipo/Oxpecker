@@ -28,17 +28,18 @@ def new(request):
 def destroy(request, lid):
     data = {}
     try:
-        data = {'license': License.objects.get(id=lid)}
+        license = License.objects.get(id=lid)
     except License.DoesNotExist:
         raise Http404('License Not Found!')
     if request.method == 'POST':
         try:
             row = License.objects.get(id=lid)
             row.delete()
-            messages.add_message(request, messages.SUCCESS, '%s license has been removed.' % data['license'].name)
+            messages.add_message(request, messages.SUCCESS, '%s license has been removed.' % license.name)
         except License.DoesNotExist:
-            messages.add_message(request, messages.ERROR, '%s license not found.' % data['license'].name)
+            messages.add_message(request, messages.ERROR, '%s license not found.' % license.name)
         return redirect(reverse('licenses_index'))
+    data.update({'license': license})
     return render(request, 'licenses/destroy.html', data)
 
 
