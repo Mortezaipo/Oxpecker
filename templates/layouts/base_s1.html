@@ -6,14 +6,20 @@
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'css/extra.css' %}">
+        <link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+        {% block extra_headers %}{% endblock %}
     </head>
     <body>
         {% include 'top_nav.html' %}
-        <div class="container well well-sm">
-            {% block body %}{% endblock %}
-        </div>
         <div class="container">
-        {% include 'footer-copyright.html' %}
+            {% include 'messages.html' %} 
+            <fieldset>
+                <legend>{% block left-legend %}{% endblock %} <div class="pull-right">{% block right-legend %}{% endblock %}</div></legend>
+                <div class="well well-sm">
+                    {% block body %}{% endblock %}
+                </div>
+            </fieldset>
+            {% include 'footer-copyright.html' %}
         </div>
     </body>
 </html>

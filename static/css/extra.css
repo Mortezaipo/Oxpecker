@@ -13,7 +13,7 @@ body
 
 .table thead
 {
-  background-color: #607D8B;
+  background-color: #386775;
   color: #FFF;
 }
 
@@ -24,5 +24,33 @@ body
 
 .navbar-default
 {
-  background-color: #ECEEEF !important;
+  /* #5C4481 */
+  background-color:#293E4C !important;
+}
+
+.navbar-default a
+{
+  color: #FFF !important;
+}
+
+.navbar-brand
+{
+  font-family: 'Bree Serif', serif !important;
+  font-size: x-large;
+}
+
+.btn
+{
+  border:none !important;
+}
+
+.navbar-nav>.active>a
+{
+  background-color:#386775 !important;
+}
+
+.form-control
+{
+  border-radius: 3px !important;
+  box-shadow: none !important;
 }
