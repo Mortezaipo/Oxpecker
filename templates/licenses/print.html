@@ -1,0 +1,18 @@
+{% extends 'layouts/base_s1.html' %}
+
+{% block title %}Print License{% endblock %}
+
+{% block left-legend %}
+<i class="fa fa-print"></i> Print License
+{% endblock %}
+
+{% block right-legend %}
+<a href="{% url 'licenses_index' %}" class="btn btn-default btn-xs"><i class="fa fa-chevron-left"></i> Back</a>
+{% endblock %}
+
+{% block body %}
+
+<h1>{{license.name}}</h1>
+{{license.body|safe}}
+
+{% endblock %}

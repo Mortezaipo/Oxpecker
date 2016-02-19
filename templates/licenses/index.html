@@ -28,7 +28,7 @@
                     <td>{{license.created_datetime|date:"Y-m-d"}}</td>
                     <td>{{license.updated_datetime|date:"Y-m-d"}}</td>
                     <td>
-                        <a href="#" class="btn btn-default btn-xs"><i class="fa fa-print"></i></a>
+                        <a href="{% url 'licenses_print' license.id %}" class="btn btn-default btn-xs"><i class="fa fa-print"></i></a>
                         <a href="{% url 'licenses_edit' license.id %}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
                         <a href="{% url 'licenses_destroy' license.id %}" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
                     </td>

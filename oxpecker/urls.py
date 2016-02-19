@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^licenses/new$', license_views.new, name="licenses_new"),
     url(r'^licenses/(?P<lid>\d+)/destroy$', license_views.destroy, name="licenses_destroy"),
     url(r'^licenses/(?P<lid>\d+)/edit$', license_views.edit, name="licenses_edit"),
+    url(r'^licenses/(?P<lid>\d+)/$', license_views.printing, name="licenses_print"),
 ]

@@ -61,3 +61,12 @@ def edit(request, lid):
     data.update({'license':license})
     data.update({'form': form})
     return render(request, 'licenses/edit.html', data)
+
+
+def printing(request, lid):
+    try:
+        data = {'license': License.objects.get(id=lid)}
+    except License.DoesNotExist:
+        raise Http404('License Not Found!')
+    return render(request, 'licenses/print.html', data)
+    
