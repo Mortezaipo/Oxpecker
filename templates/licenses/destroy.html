@@ -1,0 +1,23 @@
+{% extends 'layouts/base_s1.html' %}
+
+{% block title %}Destroy License{% endblock %}
+
+{% block left-legend %}
+<i class="fa fa-trash"></i> Destroy License
+{% endblock %}
+
+{% block right-legend %}
+<a href="{% url 'licenses_index' %}" class="btn btn-default btn-xs"><i class="fa fa-chevron-left"></i> Back</a>
+{% endblock %}
+
+{% block body %}
+
+<form method="post" action="">{% csrf_token %}
+    <p>
+        <i class="fa fa-exclamation-triangle"></i> Are you sure that you want to remove <strong><ins>{{license.name}}</ins></strong> license?
+    </p>
+    <button type="submit" class="btn btn-danger">Yes, Remove it!</button>
+    <a href="{% url 'licenses_index' %}" class="btn btn-default">Cancel</a>
+</form>
+
+{% endblock %}
