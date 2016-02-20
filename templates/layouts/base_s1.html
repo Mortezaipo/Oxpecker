@@ -12,10 +12,11 @@
     <body>
         {% include 'top_nav.html' %}
         <div class="container">
+            {% include 'errors.html' %}
             {% include 'messages.html' %} 
             <fieldset>
                 <legend>{% block left-legend %}{% endblock %} <div class="pull-right">{% block right-legend %}{% endblock %}</div></legend>
-                <div class="row well">
+                <div class="well">
                     {% block body %}{% endblock %}
                 </div>
             </fieldset>
