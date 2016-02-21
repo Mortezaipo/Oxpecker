@@ -96,7 +96,12 @@ body
 
 .form-control
 {
-  border:none !important;
+  border: 1px solid #C0C0C0 !important;
+}
+
+.input-s1
+{
+  border: 1px solid #2A9271 !important;
 }
 
 .btn-s1
