@@ -2,6 +2,15 @@ from __future__ import unicode_literals
 from django.db import models
 from companies.models import Company
 from licenses.models import License
+from oxpecker import libs
+
+
+def upload_logo(instance, filename):
+    return "uploads/games/{}/logo.png".format(instance.name)
+
+
+def upload_image(instance, filename):
+    return "uploads/games/{}/intro.png".format(instance.name)
 
 
 class Game(models.Model):
@@ -9,8 +18,8 @@ class Game(models.Model):
     introduction = models.TextField()
     company = models.ForeignKey(Company)
     license = models.ForeignKey(License)
-    logo = models.ImageField()
-    image = models.ImageField()
+    logo = models.ImageField(upload_to=upload_logo)
+    image = models.ImageField(upload_to=upload_image)
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
 
