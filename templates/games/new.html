@@ -1,0 +1,54 @@
+{% extends 'layouts/base_s1.html' %}
+
+{% block title %}New Game{% endblock %}
+
+{% block left-legend %}
+<i class="fa fa-bars"></i> New Game
+{% endblock %}
+
+{% block right-legend %}
+<a href="{% url 'games_index' %}" class="btn btn-default btn-xs"><i class="fa fa-chevron-left"></i> Back</a>
+{% endblock %}
+
+{% block extra_headers %}
+{% load staticfiles %}
+<script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'js/tinymce_toolbar_s1.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+
+{% load widget_tweaks %}
+<form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+    <div class="form-group">
+        {{form.name.label_tag}} {% if form.name.errors %}<label class="label label-danger pull-right">{{form.name.errors.as_text}}</label>{% endif %}
+        {{form.name|add_class:"form-control"}}
+    </div>
+    <div class="form-group">
+        {{form.introduction.label_tag}} {% if form.introduction.errors %}<label class="label label-danger pull-right">{{form.introduction.errors.as_text}}</label>{% endif %}
+        {{form.introduction|attr:"id:richtext"}}
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            {{form.company.label_tag}} {% if form.company.errors %}<label class="label label-danger pull-right">{{form.company.errors.as_text}}</label>{% endif %}
+            {{form.company|add_class:"form-control"}}
+        </div>
+        <div class="col-md-6 form-group">
+            {{form.license.label_tag}} {% if form.license.errors %}<label class="label label-danger pull-right">{{form.license.errors.as_text}}</label>{% endif %}
+            {{form.license|add_class:"form-control"}}
+        </div>
+    </div>
+    <div class="form-group">
+        {{form.logo.label_tag}} {% if form.logo.errors %}<label class="label label-danger pull-right">{{form.logo.errors.as_text}}</label>{% endif %}
+        {{form.logo}}
+    </div>
+    <div class="form-group">
+        {{form.image.label_tag}} {% if form.image.errors %}<label class="label label-danger pull-right">{{form.image.errors.as_text}}</label>{% endif %}
+        {{form.image}}
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Save</button>
+    </div>
+</form>
+
+{% endblock %}

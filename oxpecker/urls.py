@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from licenses import views as license_views
+from games import views as game_views
 from django.contrib.auth.views import login, logout_then_login
 
 urlpatterns = [
@@ -28,4 +29,9 @@ urlpatterns = [
     url(r'^licenses/(?P<lid>\d+)/destroy$', license_views.destroy, name="licenses_destroy"),
     url(r'^licenses/(?P<lid>\d+)/edit$', license_views.edit, name="licenses_edit"),
     url(r'^licenses/(?P<lid>\d+)/$', license_views.printing, name="licenses_print"),
+    
+    # Game
+    url(r'^games/$', game_views.index, name="games_index"),
+    url(r'^games/new$', game_views.new, name="games_new"),
+    
 ]
