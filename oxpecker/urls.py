@@ -21,10 +21,14 @@ from oxpecker import views as oxpecker_views
 from django.contrib.auth.views import login, logout_then_login
 
 urlpatterns = [
+    # Home
+    url(r'^$', oxpecker_views.index, name="home"),
+    
     #Authentication
     url(r'^login/$', login, name="login"),
     url(r'^logout/$', logout_then_login, name="logout"),
     url(r'^register/$', oxpecker_views.register, name="register"),
+    url(r'^profile/$', oxpecker_views.profile, name="profile"),
     
     # License
     url(r'^licenses/$', license_views.index, name="licenses_index"),

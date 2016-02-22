@@ -3,7 +3,7 @@
         <li><a href="#" class="navbar-brand">OXPECKER</a></li>
         <li><a href="#">Games</a></li>
         {% if user.is_authenticated %}
-        <li><a href="#">Profile</a></li>
+        <li><a href="{% url 'profile' %}">Profile</a></li>
         {% endif %}
     </ul>
     
