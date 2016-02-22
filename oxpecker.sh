@@ -6,16 +6,16 @@ fi
 
 if [ "$1" = "install" ]; then
   echo "Oxpecker installing ...."
-  python src/main.py install
+  python manage.py makemigrations
+  python manage.py migrate
 elif [ "$1" = "check" ]; then
   echo "Oxpecker checking ...."
-  python src/main.py check
 elif [ "$1" = "start" ]; then
   echo "Oxpecker start services..."
-  python main.py start
+  python manage.py runserver
 elif [ "$1" = "stop" ]; then
   echo "Oxpecker stop services..."
-  python src/main.py stop
 elif [ "$1" = "clean" ]; then
   find . -iname "*pyc" -delete #FIXME
+  find . -iname "[0-9]*.py*" -delete #FIXME
 fi
