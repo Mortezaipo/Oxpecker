@@ -13,9 +13,9 @@
     <body>
         {% include 'top_nav.html' %}
         <div class="container">
+            {% include 'messages.html' %}
             {% include 'errors.html' %}
             <div class="well well-s1">
-                {% include 'messages.html' %}
                 {% block body %}{% endblock %}    
             </div>
             {% include 'footer-copyright.html' %}
