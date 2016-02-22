@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Company(models.Model):
@@ -8,6 +9,7 @@ class Company(models.Model):
     site = models.URLField()
     logo = models.ImageField()
     introduction = models.TextField()
+    user = models.ForeignKey(User)
     created_datetime = models.DateTimeField(auto_now_add=True)
     updated_datetime = models.DateTimeField(auto_now=True)
     
