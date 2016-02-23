@@ -3,11 +3,15 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+def upload_logo(instance, filename):
+    return "uploads/companies/{}/logo.png".format(instance.name)
+    
+    
 class Company(models.Model):
     name = models.CharField(max_length=50, unique=True)
     email = models.EmailField()
     site = models.URLField()
-    logo = models.ImageField()
+    logo = models.ImageField(upload_to=upload_logo)
     introduction = models.TextField()
     user = models.ForeignKey(User)
     created_datetime = models.DateTimeField(auto_now_add=True)

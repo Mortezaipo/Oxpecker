@@ -43,5 +43,6 @@ urlpatterns = [
     
     # Company
     url(r'^companies/$', company_views.index, name="companies_index"),
+    url(r'^companies/new$', company_views.new, name="companies_new"),
     
 ]

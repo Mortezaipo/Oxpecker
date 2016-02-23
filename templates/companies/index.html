@@ -1,0 +1,25 @@
+{% extends 'layouts/base_s1.html' %}
+
+{% block title %}Companies{% endblock %}
+
+{% block left-legend %}
+<i class="fa fa-building"></i> Companies
+{% endblock %}
+
+{% block right-legend %}
+<a href="{% url 'companies_new' %}" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Add New</a>
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+    {% for company in companies %}
+    <div class="col-md-1 well">
+        {{company.name}}
+    </div>
+    {% endfor %}
+    
+</div>
+
+{% endblock %}
