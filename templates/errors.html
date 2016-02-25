@@ -1,3 +1,11 @@
 {% if form.non_field_errors %}
     <div class="alert alert-danger">{{form.non_field_errors.as_text}}</div>
 {% endif %}
+
+{% if company_form.non_field_errors %}
+    <div class="alert alert-danger">{{company_form.non_field_errors.as_text}}</div>
+{% endif %}
+
+{% if developer_form.non_field_errors %}
+    <div class="alert alert-danger">{{developer_form.non_field_errors.as_text}}</div>
+{% endif %}

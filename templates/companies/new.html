@@ -20,14 +20,6 @@
 
 {% block body %}
 
-{% if company_form.non_field_errors %}
-    <div class="alert alert-danger">{{company_form.non_field_errors.as_text}}</div>
-{% endif %}
-<hr>
-{% if developer_form.non_field_errors %}
-    <div class="alert alert-danger">{{developer_form.non_field_errors.as_text}}</div>
-{% endif %}
-
 {% load widget_tweaks %}
 <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
     <div class="row">
@@ -73,13 +65,16 @@
                 <th class="text-center">
                     <label class="dev-counter">1</label>
                 </th>
-                <td>
+                <td {% if dev.name.errors %}class="danger"{% endif %}>
+                    <!--{% if dev.name.errors %}<label class="label label-danger label-error pull-right">{{dev.name.errors.as_text}}</label>{% endif %}-->
                     <input type="text" name="{{dev.name.html_name}}" max_length="{{dev.name.field.max_length}}" class="form-control" value="{{dev.name.value|default:''}}" placeholder="Name">
                 </td>
-                <td>
+                <td {% if dev.brief_introduction.errors %}class="danger"{% endif %}>
+                    <!--{% if dev.brief_introduction.errors %}<label class="label label-danger label-error pull-right">{{dev.brief_introduction.errors.as_text}}</label>{% endif %}-->
                     <input type="text" name="{{dev.brief_introduction.html_name}}" max_length="{{dev.brief_introduction.field.max_length}}" class="form-control" value="{{dev.brief_introduction.value|default:''}}" placeholder="Brief Introduction">
                 </td>
-                <td>
+                <td {% if dev.picture.errors %}class="danger"{% endif %}>
+                    <!--{% if dev.picture.errors %}<label class="label label-danger label-error pull-right">{{dev.picture.errors.as_text}}</label>{% endif %}-->
                     <input type="file" name="{{dev.picture.html_name}}">
                 </td>
                 <td>
