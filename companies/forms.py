@@ -20,4 +20,14 @@ class CompanyForm(forms.ModelForm):
 class DeveloperForm(forms.ModelForm):
     class Meta:
         model = Developer
-        fields = "__all__"
+        exclude = ["company",]
+        
+    def clean_picture(self):
+        picture = self.cleaned_data.get('picture')
+        if picture:
+            if picture.content_type == 'image/png':
+                return picture
+            else:
+                raise forms.ValidationError('%s file format is not supported. Just PNG file is acceptable.' % logo.content_type)
+        raise forms.ValidationError('This field is required.')
+    

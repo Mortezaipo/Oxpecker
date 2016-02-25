@@ -14,36 +14,82 @@
 {% load staticfiles %}
 <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
 <script src="{% static 'js/tinymce_toolbar_s1.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/extra.js' %}"></script>
 {% endblock %}
 
 {% block body %}
+
+{% if company_form.non_field_errors %}
+    <div class="alert alert-danger">{{company_form.non_field_errors.as_text}}</div>
+{% endif %}
+<hr>
+{% if developer_form.non_field_errors %}
+    <div class="alert alert-danger">{{developer_form.non_field_errors.as_text}}</div>
+{% endif %}
 
 {% load widget_tweaks %}
 <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
     <div class="row">
         <div class="form-group col-md-6">
-            {{form.name.label_tag}} {% if form.name.errors %}<label class="label label-danger pull-right">{{form.name.errors.as_text}}</label>{% endif %}
-            {{form.name|add_class:"form-control"}}
+            {{company_form.title.label_tag}} {% if company_form.title.errors %}<label class="label label-danger pull-right">{{company_form.title.errors.as_text}}</label>{% endif %}
+            {{company_form.title|add_class:"form-control"}}
         </div>
         <div class="form-group col-md-6">
-            {{form.email.label_tag}} {% if form.email.errors %}<label class="label label-danger pull-right">{{form.email.errors.as_text}}</label>{% endif %}
-            {{form.email|add_class:"form-control"}}
+            {{company_form.email.label_tag}} {% if company_form.email.errors %}<label class="label label-danger pull-right">{{company_form.email.errors.as_text}}</label>{% endif %}
+            {{company_form.email|add_class:"form-control"}}
         </div>    
     </div>
     <div class="row">
         <div class="form-group col-md-6">
-            {{form.site.label_tag}} {% if form.site.errors %}<label class="label label-danger pull-right">{{form.site.errors.as_text}}</label>{% endif %}
-            {{form.site|add_class:"form-control"}}
+            {{company_form.site.label_tag}} {% if company_form.site.errors %}<label class="label label-danger pull-right">{{company_form.site.errors.as_text}}</label>{% endif %}
+            {{company_form.site|add_class:"form-control"}}
         </div>
         <div class="form-group col-md-6">
-            {{form.logo.label_tag}} {% if form.logo.errors %}<label class="label label-danger pull-right">{{form.logo.errors.as_text}}</label>{% endif %}
-            {{form.logo}}
+            {{company_form.logo.label_tag}} {% if company_form.logo.errors %}<label class="label label-danger pull-right">{{company_form.logo.errors.as_text}}</label>{% endif %}
+            {{company_form.logo}}
         </div>
     </div>
     <div class="form-group">
-        {{form.introduction.label_tag}} {% if form.introduction.errors %}<label class="label label-danger pull-right">{{form.introduction.errors.as_text}}</label>{% endif %}
-        {{form.introduction|attr:"id:richtext"}}
+        {{company_form.introduction.label_tag}} {% if company_form.introduction.errors %}<label class="label label-danger pull-right">{{company_form.introduction.errors.as_text}}</label>{% endif %}
+        {{company_form.introduction|attr:"id:richtext"}}
     </div>
+    <hr>
+    <h3>Team Members</h3>
+    <table class="table dev-team-list">
+        <thead>
+            <tr>
+                <th class="col-md-0">Row</th>
+                <th>Name</th>
+                <th>Introduction</th>
+                <th class="col-md-2">Picture</th>
+                <th class="col-md-1">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{developer_form.management_form}}
+            {% for dev in developer_form %}
+            <tr class="dev-team" id="dev-1">
+                <th class="text-center">
+                    <label class="dev-counter">1</label>
+                </th>
+                <td>
+                    <input type="text" name="{{dev.name.html_name}}" max_length="{{dev.name.field.max_length}}" class="form-control" value="{{dev.name.value|default:''}}" placeholder="Name">
+                </td>
+                <td>
+                    <input type="text" name="{{dev.brief_introduction.html_name}}" max_length="{{dev.brief_introduction.field.max_length}}" class="form-control" value="{{dev.brief_introduction.value|default:''}}" placeholder="Brief Introduction">
+                </td>
+                <td>
+                    <input type="file" name="{{dev.picture.html_name}}">
+                </td>
+                <td>
+                    <a href="#" class="btn btn-default add_developer"><i class="fa fa-plus"></i></a>
+                    <a href="#" class="btn btn-warning del_developer"><i class="fa fa-minus"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     <div class="form-group">
         <button type="submit" class="btn btn-success">Save</button>
     </div>
