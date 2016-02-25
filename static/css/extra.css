@@ -78,6 +78,12 @@ body
   color: #FFF !important;
 }
 
+.well-s2
+{
+  border:1px solid #74E8B6 !important;
+  background-color: #A8F5D4 !important;
+}
+
 .fa-3
 {
   font-size: 4em;
@@ -120,4 +126,10 @@ body
 {
   color: #FFF;
   background-color: #187B61;
+}
+
+.label-error
+{
+  position: relative;
+  top: 21px;
 }
