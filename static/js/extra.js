@@ -31,6 +31,26 @@ function del_developer() {
 
 $(document).ready(function(){
     update_records();
-    $(document).on("click",".add_developer", add_developer); 
-    $(document).on("click",".del_developer", del_developer); 
+    $(document).on("click",".add_developer", add_developer);
+    $(document).on("click",".del_developer", del_developer);
+    $(".picture").click(function(){
+        $(this).next().trigger('click');
+    });
+    $('input[type=file]').change(function(){
+         var me = this;
+         if (me.files && me.files[0]) {
+             var reader = new FileReader();
+             reader.onload = function(e)
+             {
+                 $(me).prev().html('');
+                 $(me).prev().addClass('div-picture');
+                 $(me).prev().css({'background-image': 'url(' + e.target.result + ')'});
+             }
+             reader.readAsDataURL(me.files[0]);
+         }else{
+            $(me).prev().css({'background-image': ''});
+             $(me).prev().removeClass('div-picture');
+             $(me).prev().html('<i class="fa fa-camera"></i>');
+         }
+    });
 });

@@ -54,7 +54,7 @@
                 <th class="col-md-0">Row</th>
                 <th>Name</th>
                 <th>Introduction</th>
-                <th class="col-md-2">Picture</th>
+                <th class="col-md-0">Picture</th>
                 <th class="col-md-1">Action</th>
             </tr>
         </thead>
@@ -75,7 +75,10 @@
                 </td>
                 <td {% if dev.picture.errors %}class="danger"{% endif %}>
                     <!--{% if dev.picture.errors %}<label class="label label-danger label-error pull-right">{{dev.picture.errors.as_text}}</label>{% endif %}-->
-                    <input type="file" name="{{dev.picture.html_name}}">
+                    <div class="picture btn btn-default">
+                        <i class="fa fa-camera"></i>
+                    </div>
+                    <input type="file" name="{{dev.picture.html_name}}" class="hide">
                 </td>
                 <td>
                     <a href="#" class="btn btn-default add_developer"><i class="fa fa-plus"></i></a>
