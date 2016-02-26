@@ -4,6 +4,7 @@ from django.contrib import messages
 from forms import CompanyForm, DeveloperForm
 from models import Company, Developer
 from django.forms import formset_factory
+from django.http import Http404
 
 
 def index(request):
@@ -39,3 +40,12 @@ def new(request):
             messages.add_message(request, messages.ERROR, "Add new company failed. Check yout data.")
     data = {'company_form': company_form, 'developer_form': developer_form}
     return render(request, 'companies/new.html', data)
+
+
+def info(request, cid):
+    try:
+        company = Company.objects.get(id=cid)
+    except Company.DoesNotExist:
+        raise Http404('Company not found.')
+    data = {'company': company}
+    return render(request, 'companies/info.html', data)

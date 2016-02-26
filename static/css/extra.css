@@ -133,3 +133,24 @@ body
   position: relative;
   top: 21px;
 }
+
+.circle
+{
+  width: 100%;
+  border-radius: 60%;
+}
+
+.dev-info
+{
+  margin-bottom: 10px;
+}
+
+.dev-info small
+{
+  color: #555;
+}
+
+.fix
+{
+  width:100%;
+}

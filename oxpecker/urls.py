@@ -45,6 +45,7 @@ urlpatterns = [
     
     # Company
     url(r'^companies/$', company_views.index, name="companies_index"),
+    url(r'^companies/(?P<cid>\w+)/$', company_views.info, name="companies_info"),
     url(r'^companies/new$', company_views.new, name="companies_new"),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #FIXME: just for development

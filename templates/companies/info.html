@@ -1,0 +1,44 @@
+{% extends 'layouts/base_s1.html' %}
+
+{% block title %}Companies{% endblock %}
+
+{% block left-legend %}
+<i class="fa fa-building"></i> Company Info
+{% endblock %}
+
+{% block right-legend %}
+<a href="{% url 'companies_index' %}" class="btn btn-default btn-xs"><i class="fa fa-chevron-left"></i> Back</a>
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-10">
+        <h3>{{company.name}}</h3>
+        <small>
+            <i>{{company.email}}</i><br>
+            <i>{{company.site}}</i>        
+        </small>
+    </div>
+    <div class="col-md-2">
+        <img src="{{MEDIA_URL}}companies/{{company.name}}/logo.png" class="thumbnail fix">
+    </div>
+</div>
+   
+<div>{{company.introduction|safe}}</div>
+
+<fieldset>
+    <legend>Team Members</legend>
+    {% for dev in company.developer_set.all %}
+    <div class="col-md-6 dev-info">
+        <div class="col-md-2">
+            <img src="{{MEDIA_URL}}companies/{{company.name}}/developers/{{dev.name}}.png" class="circle">
+        </div>
+        <div class="col-md-10">
+            <strong>{{dev.name}}</strong><br>
+            <small><i>{{dev.brief_introduction}}</i></small>
+        </div>
+    </div>
+    {% endfor %}
+</fieldset>
+{% endblock %}
