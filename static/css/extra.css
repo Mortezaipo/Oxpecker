@@ -166,4 +166,54 @@ body
   width: 100%;
   padding: 17px;
   background-position: 50%;
+  height: inherit;
+}
+
+.screenshot
+{
+  min-height: 300px;
+  border:1px solid #C0C0C0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border-bottom: none;
+  border-radius: 3px 3px 0 0;
+}
+
+.screenshot-item
+{
+  margin-bottom: 20px;
+}
+
+.upload_screenshot
+{
+  font-size: xx-large;
+  color: #9E9E9E;
+  top: 33%;
+  position: absolute;
+  left: 0%;
+  cursor: pointer;
+}
+
+.screenshot-title
+{
+  border-radius: 0 0 0 3px !important;
+  border-right:none !important;
+}
+
+.sc-actions
+{
+  border-radius: 0 0 3px 0 !important;
+  border: 1px solid #C0C0C0 !important;
+  border-top: 1px solid #C0C0C0 !important;
+}
+
+.sc-actions a
+{
+  color: #9E9E9E !important;
+}
+
+.danger
+{
+  background-color: #D9534F;
+  color:#FFF;
 }

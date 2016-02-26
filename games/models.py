@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 from django.db import models
 from companies.models import Company
 from licenses.models import License
-from oxpecker import libs
 
 
 def upload_logo(instance, filename):
@@ -11,6 +10,9 @@ def upload_logo(instance, filename):
 
 def upload_image(instance, filename):
     return "uploads/games/{}/intro.png".format(instance.name)
+
+def upload_screenshot(instance, filename):
+    return "uploads/games/{}/screenshots/".format(instance.game.name)
 
 
 class Game(models.Model):
@@ -37,9 +39,9 @@ class Version(models.Model):
         return self.version
 
 
-class ScreenShot(models.Model):
+class Screenshot(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField()
+    image = models.ImageField(upload_to=upload_screenshot)
     game = models.ForeignKey(Game)
     created_datetime = models.DateTimeField(auto_now_add=True)
 

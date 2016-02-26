@@ -14,6 +14,8 @@
 {% load staticfiles %}
 <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
 <script src="{% static 'js/tinymce_toolbar_s1.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/extra.js' %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -21,31 +23,56 @@
 {% load widget_tweaks %}
 <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
     <div class="form-group">
-        {{form.name.label_tag}} {% if form.name.errors %}<label class="label label-danger pull-right">{{form.name.errors.as_text}}</label>{% endif %}
-        {{form.name|add_class:"form-control"}}
+        {{game_form.name.label_tag}} {% if game_form.name.errors %}<label class="label label-danger pull-right">{{game_form.name.errors.as_text}}</label>{% endif %}
+        {{game_form.name|add_class:"form-control"}}
     </div>
     <div class="form-group">
-        {{form.introduction.label_tag}} {% if form.introduction.errors %}<label class="label label-danger pull-right">{{form.introduction.errors.as_text}}</label>{% endif %}
-        {{form.introduction|attr:"id:richtext"}}
+        {{game_form.introduction.label_tag}} {% if game_form.introduction.errors %}<label class="label label-danger pull-right">{{game_form.introduction.errors.as_text}}</label>{% endif %}
+        {{game_form.introduction|attr:"id:richtext"}}
     </div>
     <div class="row">
         <div class="col-md-6 form-group">
-            {{form.company.label_tag}} {% if form.company.errors %}<label class="label label-danger pull-right">{{form.company.errors.as_text}}</label>{% endif %}
-            {{form.company|add_class:"form-control"}}
+            {{game_form.company.label_tag}} {% if game_form.company.errors %}<label class="label label-danger pull-right">{{game_form.company.errors.as_text}}</label>{% endif %}
+            {{game_form.company|add_class:"form-control"}}
         </div>
         <div class="col-md-6 form-group">
-            {{form.license.label_tag}} {% if form.license.errors %}<label class="label label-danger pull-right">{{form.license.errors.as_text}}</label>{% endif %}
-            {{form.license|add_class:"form-control"}}
+            {{game_form.license.label_tag}} {% if game_form.license.errors %}<label class="label label-danger pull-right">{{game_form.license.errors.as_text}}</label>{% endif %}
+            {{game_form.license|add_class:"form-control"}}
         </div>
     </div>
-    <div class="form-group">
-        {{form.logo.label_tag}} {% if form.logo.errors %}<label class="label label-danger pull-right">{{form.logo.errors.as_text}}</label>{% endif %}
-        {{form.logo}}
+    <div class="row">
+        <div class="col-md-6 form-group">
+            {{game_form.logo.label_tag}} {% if game_form.logo.errors %}<label class="label label-danger pull-right">{{game_form.logo.errors.as_text}}</label>{% endif %}
+            {{game_form.logo}}
+        </div>
+        <div class="col-md-6 form-group">
+            {{game_form.image.label_tag}} {% if game_form.image.errors %}<label class="label label-danger pull-right">{{game_form.image.errors.as_text}}</label>{% endif %}
+            {{game_form.image}}
+        </div>
     </div>
-    <div class="form-group">
-        {{form.image.label_tag}} {% if form.image.errors %}<label class="label label-danger pull-right">{{form.image.errors.as_text}}</label>{% endif %}
-        {{form.image}}
-    </div>
+    
+    <fieldset>
+        <legend>Screenshots</legend>
+        {{screenshot_form.management_form}}
+        <div class="row">
+            {% for sc in screenshot_form %}
+            <div class="col-md-3 screenshot-item" id="sc-1">
+                <div class="screenshot picture {% if sc.title.errors or sc.image.errors %}danger{% endif %}">
+                    <div class="upload_screenshot text-center">Click Here To Upload</div>
+                </div>
+                <input type="file" name="{{sc.image.html_name}}" class="hide screenshot-file">
+                <div class="input-group">
+                    <input type="text" name="{{sc.title.html_name}}" max_length="{{sc.title.field.max_length}}" placeholder="Title" class="form-control screenshot-title" value="{{sc.title.value|default:''}}">
+                    <div class="input-group-addon sc-actions">
+                        <a href="#"><i class="fa fa-plus add-screenshot"></i></a>
+                        <a href="#"><i class="fa fa-minus del-screenshot"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </fieldset>
+    <hr>
     <div class="form-group">
         <button type="submit" class="btn btn-success">Save</button>
     </div>

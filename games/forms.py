@@ -1,5 +1,5 @@
 from django import forms
-from models import Game, Version, ScreenShot
+from models import Game, Version, Screenshot
 
 
 class GameForm(forms.ModelForm):
@@ -28,7 +28,15 @@ class VersionForm(forms.ModelForm):
         fields = "__all__"
         
 
-class ScreenShotForm(forms.ModelForm):
+class ScreenshotForm(forms.ModelForm):
     class Meta:
-        model = ScreenShot
-        fields = "__all__"
+        model = Screenshot
+        exclude = ["game",]
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image', False)
+        if image:
+            if image.content_type in ('image/png', 'image/jpeg'):
+                return image
+            raise forms.ValidationError('%s file format is not supported. Just PNG and JPEG files are acceptable.' % image.content_type)
+        raise forms.ValidationError('This field is required.')
