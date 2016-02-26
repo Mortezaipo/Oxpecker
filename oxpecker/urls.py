@@ -19,6 +19,8 @@ from games import views as game_views
 from companies import views as company_views
 from oxpecker import views as oxpecker_views
 from django.contrib.auth.views import login, logout_then_login
+from django.conf.urls.static import static #FIXME: just for development
+from django.conf import settings #FIXME: just for development
 
 urlpatterns = [
     # Home
@@ -45,4 +47,4 @@ urlpatterns = [
     url(r'^companies/$', company_views.index, name="companies_index"),
     url(r'^companies/new$', company_views.new, name="companies_new"),
     
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #FIXME: just for development
