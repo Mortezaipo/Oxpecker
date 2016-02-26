@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 
 
 def upload_company_logo(instance, filename):
-    return "uploads/companies/{}/logo.png".format(instance.title)
+    return "uploads/companies/{}/logo.png".format(instance.name)
 
 def upload_profile_picture(instance, filename):
-    return "uploads/companies/{}/developers/{}".format(instance.company.title, instance.name)
+    return "uploads/companies/{}/developers/{}.png".format(instance.company.name, instance.name)
 
 
 class Company(models.Model):
-    title = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, unique=True)
     email = models.EmailField()
     site = models.URLField()
     logo = models.ImageField(upload_to=upload_company_logo)
@@ -21,7 +21,7 @@ class Company(models.Model):
     updated_datetime = models.DateTimeField(auto_now=True)
     
     def __unicode__(self):
-        return self.title
+        return self.name
         
 
 class Developer(models.Model):
@@ -33,4 +33,4 @@ class Developer(models.Model):
     updated_datetime = models.DateTimeField(auto_now=True)
         
     def __unicode__(self):
-        return "%s: %s" %(self.name, self.company.title)
+        return "%s: %s" %(self.name, self.company.name)
