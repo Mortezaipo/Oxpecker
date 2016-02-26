@@ -24,8 +24,8 @@
 <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
     <div class="row">
         <div class="form-group col-md-6">
-            {{company_form.title.label_tag}} {% if company_form.title.errors %}<label class="label label-danger pull-right">{{company_form.title.errors.as_text}}</label>{% endif %}
-            {{company_form.title|add_class:"form-control"}}
+            {{company_form.name.label_tag}} {% if company_form.name.errors %}<label class="label label-danger pull-right">{{company_form.name.errors.as_text}}</label>{% endif %}
+            {{company_form.name|add_class:"form-control"}}
         </div>
         <div class="form-group col-md-6">
             {{company_form.email.label_tag}} {% if company_form.email.errors %}<label class="label label-danger pull-right">{{company_form.email.errors.as_text}}</label>{% endif %}
