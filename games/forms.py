@@ -1,11 +1,16 @@
 from django import forms
 from models import Game, Version, Screenshot
+from companies.models import Company
 
 
 class GameForm(forms.ModelForm):
     class Meta:
         model = Game
         fields = "__all__"
+        
+    def __init__(self, user, *args, **kwargs):
+        super(GameForm, self).__init__(*args, **kwargs)
+        self.fields['company'].queryset = Company.objects.filter(user=user)
         
     def clean_logo(self):
         logo = self.cleaned_data.get('logo', False)

@@ -13,11 +13,11 @@ def index(request):
 
 
 def new(request):
-    game_form = GameForm()
+    game_form = GameForm(request.user)
     screenshot_form = formset_factory(ScreenshotForm, extra=4, min_num=4, max_num=8)
     
     if request.method == "POST":
-        game_form = GameForm(request.POST, request.FILES)
+        game_form = GameForm(request.user, request.POST, request.FILES)
         screenshot_form = screenshot_form(request.POST, request.FILES)
         
         if game_form.is_valid():
