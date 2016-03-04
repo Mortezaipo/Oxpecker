@@ -1,0 +1,37 @@
+{% extends 'layouts/base_s1.html' %}
+
+{% block title %}Licenses{% endblock %}
+
+{% block left-legend %}
+<i class="fa fa-gamepad"></i> Games
+{% endblock %}
+
+{% block right-legend %}
+<a href="{% url 'games_new' %}" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Add New</a>
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    {% for game in games %}
+    <div class="col-md-4">
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img src="{{MEDIA_URL}}games/{{game.name}}/logo.png" class="media-object game-logo">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4>{{game.name}}</h4>
+                <i>{{game.company.name}}</i>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-md-12">
+        <i>There is no game in your list. Click <a href="{% url 'games_new' %}">Add New</a> to create new one.</i>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
