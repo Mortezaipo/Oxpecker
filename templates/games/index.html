@@ -22,7 +22,7 @@
                 </a>
             </div>
             <div class="media-body">
-                <h4>{{game.name}}</h4>
+                <h4>{{game.name}} <a href="{% url 'games_versions_index' game.id %}" class="btn btn-success btn-sm">V</a></h4>
                 <i>{{game.company.name}}</i>
             </div>
         </div>

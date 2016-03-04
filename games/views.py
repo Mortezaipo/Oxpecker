@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from models import Game, Version
-from forms import GameForm, ScreenshotForm
+from forms import GameForm, ScreenshotForm, VersionForm
 from django.contrib import messages
 from django.forms import formset_factory
+from django.http import Http404
 
 
 def index(request):
@@ -40,3 +41,34 @@ def new(request):
             
     data = {'game_form': game_form, 'screenshot_form': screenshot_form}
     return render(request, 'games/new.html', data)
+
+
+def version(request, gid):
+    try:
+        game = Game.objects.get(id=gid)
+    except Game.DoesNotExists:
+        raise Http404('Game not found!')
+
+    data = {'versions': game.version_set.all()}
+    return render(request, 'games/versions/index.html', data)
+
+def new_version(request, gid):
+    try:
+        game = Game.objects.get(id=gid)
+    except Game.DoesNotExists:
+        raise Http404('Game not found!')
+    
+    form = VersionForm()
+    if request.method == "POST":
+        form = VersionForm(request.POST, request.FILES)
+        if form.is_valid():
+            action = form.save(commit=False)
+            action.game = game
+            action.save()
+            messages.add_message(request, messages.SUCCESS, "New version has been added successfully.")
+            return redirect(reverse('versions_index', kwargs={'gid': gid}))
+        else:
+            messages.add_message(request, messages.ERROR, "Add new version failed. Check your data.")
+    
+    data = {'form': form, 'gid': gid}
+    return render(request, 'games/versions/new.html', data)

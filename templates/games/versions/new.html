@@ -1,0 +1,40 @@
+{% extends 'layouts/base_s1.html' %}
+
+{% block title %}New Version{% endblock %}
+
+{% block left-legend %}
+<i class="fa fa-gamepad"></i> New Version
+{% endblock %}
+
+{% block right-legend %}
+<a href="{% url 'games_versions_index' gid %}" class="btn btn-default btn-xs"><i class="fa fa-chevron-left"></i> Back</a>
+{% endblock %}
+
+{% block extra_headers %}
+{% load staticfiles %}
+<script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'js/tinymce_toolbar_s1.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+
+{% load widget_tweaks %}
+<form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+    <div class="form-group">
+        {{form.version.label_tag}} {% if form.version.errors %}<label class="label label-danger pull-right">{{form.version.errors.as_text}}</label>{% endif %}
+        {{form.version|add_class:"form-control"}}
+    </div>
+    <div class="form-group">
+        {{form.change.label_tag}} {% if form.change.errors %}<label class="label label-danger pull-right">{{form.change.errors.as_text}}</label>{% endif %}
+        {{form.change|attr:"id:richtext"}}
+    </div>
+    <div class="form-group">
+        {{form.package.label_tag}} {% if form.package.errors %}<label class="label label-danger pull-right">{{form.package.errors.as_text}}</label>{% endif %}
+        {{form.package}}
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Save</button>
+    </div>
+</form>
+
+{% endblock %}

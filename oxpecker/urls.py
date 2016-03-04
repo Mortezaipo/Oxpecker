@@ -42,6 +42,9 @@ urlpatterns = [
     # Game
     url(r'^games/$', game_views.index, name="games_index"),
     url(r'^games/new$', game_views.new, name="games_new"),
+    url(r'^games/versions/(?P<gid>\d+)/$', game_views.version, name="games_versions_index"),
+    url(r'^games/versions/(?P<gid>\d+)/new$', game_views.new_version, name="games_versions_new"),
+    
     
     # Company
     url(r'^companies/$', company_views.index, name="companies_index"),
