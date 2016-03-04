@@ -21,6 +21,8 @@ from oxpecker import views as oxpecker_views
 from django.contrib.auth.views import login, logout_then_login
 from django.conf.urls.static import static #FIXME: just for development
 from django.conf import settings #FIXME: just for development
+from pyws.adapters._django import serve
+from oxpecker.soap_ws import server
 
 urlpatterns = [
     # Home
@@ -45,10 +47,12 @@ urlpatterns = [
     url(r'^games/versions/(?P<gid>\d+)/$', game_views.version, name="games_versions_index"),
     url(r'^games/versions/(?P<gid>\d+)/new$', game_views.new_version, name="games_versions_new"),
     
-    
     # Company
     url(r'^companies/$', company_views.index, name="companies_index"),
     url(r'^companies/(?P<cid>\w+)/$', company_views.info, name="companies_info"),
     url(r'^companies/new$', company_views.new, name="companies_new"),
+    
+    # Web service
+    url('^api/(.*)$', serve, {'server': server})
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #FIXME: just for development
