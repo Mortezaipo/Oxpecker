@@ -30,7 +30,7 @@ class GameForm(forms.ModelForm):
 class VersionForm(forms.ModelForm):
     class Meta:
         model = Version
-        fields = "__all__"
+        exclude = ['game',]
         
 
 class ScreenshotForm(forms.ModelForm):
