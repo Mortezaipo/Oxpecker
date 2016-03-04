@@ -1,15 +1,17 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <ul class="nav navbar-nav">
         <li><a href="#" class="navbar-brand">OXPECKER</a></li>
-        <li><a href="#">Games</a></li>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'profile' %}">Profile</a></li>
-        {% endif %}
+        <li><a href="{% url 'games_index' %}">Games</a></li>
+        <li><a href="{% url 'companies_index' %}">Companies</a></li>
+        <li><a href="{% url 'licenses_index' %}">Licenses</a></li>
     </ul>
     
     <ul class="nav navbar-nav pull-right">
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'profile' %}"><i class="fa fa-user"></i> Profile</a></li>
         <li><a href="{% url 'logout' %}"><i class="fa fa-power-off"></i></a></li>
+        {% endif %}
     </ul>
 </div>
