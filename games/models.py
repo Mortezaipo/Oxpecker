@@ -14,6 +14,9 @@ def upload_image(instance, filename):
 def upload_screenshot(instance, filename):
     return "games/{}/screenshots/{}".format(instance.game.name, instance.image)
 
+def upload_package(instance, filename):
+    return "games/{}/packages/{}.tar.gz".format(instance.game.name, instance.version)
+
 
 class Game(models.Model):
     name = models.CharField(max_length=200, unique=True)
@@ -30,13 +33,17 @@ class Game(models.Model):
 
 
 class Version(models.Model):
-    changes = models.TextField()
-    version = models.IntegerField()
+    change = models.TextField()
+    version = models.CharField(max_length=10)
+    package = models.FileField(upload_to=upload_package, default=None)
     game = models.ForeignKey(Game)
     created_datetime = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return self.version
+
+    class Meta:
+        unique_together = (('version', 'game'),)
 
 
 class Screenshot(models.Model):
