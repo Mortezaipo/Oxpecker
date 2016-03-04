@@ -17,7 +17,7 @@
         <h3>{{company.name}}</h3>
         <small>
             <i>{{company.email}}</i><br>
-            <i>{{company.site}}</i>        
+            <i><a href="{{company.site}}" target="_blank">{{company.site}}</a></i>        
         </small>
     </div>
     <div class="col-md-2">
@@ -31,12 +31,16 @@
     <legend>Team Members</legend>
     {% for dev in company.developer_set.all %}
     <div class="col-md-6 dev-info">
-        <div class="col-md-2">
-            <img src="{{MEDIA_URL}}companies/{{company.name}}/developers/{{dev.name}}.png" class="circle">
-        </div>
-        <div class="col-md-10">
-            <strong>{{dev.name}}</strong><br>
-            <small><i>{{dev.brief_introduction}}</i></small>
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img src="{{MEDIA_URL}}companies/{{company.name}}/developers/{{dev.name}}.png" class="media-object circle">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4>{{dev.name}}</h4>
+                <small><i>{{dev.brief_introduction}}</i></small>
+            </div>
         </div>
     </div>
     {% endfor %}
