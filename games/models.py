@@ -5,14 +5,14 @@ from licenses.models import License
 
 
 def upload_logo(instance, filename):
-    return "uploads/games/{}/logo.png".format(instance.name)
+    return "games/{}/logo.png".format(instance.name)
 
 
 def upload_image(instance, filename):
-    return "uploads/games/{}/intro.png".format(instance.name)
+    return "games/{}/intro.png".format(instance.name)
 
 def upload_screenshot(instance, filename):
-    return "uploads/games/{}/screenshots/".format(instance.game.name)
+    return "games/{}/screenshots/{}".format(instance.game.name, instance.image)
 
 
 class Game(models.Model):
