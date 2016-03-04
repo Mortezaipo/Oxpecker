@@ -4,10 +4,10 @@ from django.contrib.auth.models import User
 
 
 def upload_company_logo(instance, filename):
-    return "uploads/companies/{}/logo.png".format(instance.name) #FIXME: lower()
+    return "companies/{}/logo.png".format(instance.name) #FIXME: lower()
 
 def upload_profile_picture(instance, filename):
-    return "uploads/companies/{}/developers/{}.png".format(instance.company.name, instance.name) #FIXME: lower()
+    return "companies/{}/developers/{}.png".format(instance.company.name, instance.name) #FIXME: lower()
 
 
 class Company(models.Model):
