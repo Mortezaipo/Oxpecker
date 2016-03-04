@@ -65,3 +65,6 @@ target/
 
 #SQLite
 *.sqlite*
+
+#Upload directory
+uploads/*
